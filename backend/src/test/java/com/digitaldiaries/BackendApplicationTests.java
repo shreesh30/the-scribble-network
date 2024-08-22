@@ -1,4 +1,4 @@
-package com.digitaldiaries.backend;
+package com.digitaldiaries;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

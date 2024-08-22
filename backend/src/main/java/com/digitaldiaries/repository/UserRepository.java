@@ -1,4 +1,4 @@
-package com.digitaldiaries.backend.repository;
+package com.digitaldiaries.repository;
 
 import org.springframework.stereotype.Repository;
 

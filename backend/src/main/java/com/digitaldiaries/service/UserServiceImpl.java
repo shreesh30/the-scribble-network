@@ -1,4 +1,4 @@
-package com.digitaldiaries.backend.service;
+package com.digitaldiaries.service;
 
 import org.springframework.stereotype.Service;
 

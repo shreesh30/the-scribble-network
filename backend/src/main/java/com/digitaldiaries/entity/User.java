@@ -1,4 +1,4 @@
-package com.digitaldiaries.backend.entity;
+package com.digitaldiaries.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
