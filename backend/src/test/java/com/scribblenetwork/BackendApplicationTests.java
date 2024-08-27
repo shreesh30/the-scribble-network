@@ -1,4 +1,4 @@
-package com.digitaldiaries;
+package com.scribblenetwork;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

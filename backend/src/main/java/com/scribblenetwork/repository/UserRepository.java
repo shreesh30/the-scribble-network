@@ -1,6 +1,6 @@
-package com.digitaldiaries.repository;
+package com.scribblenetwork.repository;
 
-import com.digitaldiaries.entity.Users;
+import com.scribblenetwork.entity.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

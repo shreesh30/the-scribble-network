@@ -1,6 +1,6 @@
-package com.digitaldiaries.model;
+package com.scribblenetwork.model;
 
-import com.digitaldiaries.entity.Users;
+import com.scribblenetwork.entity.Users;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

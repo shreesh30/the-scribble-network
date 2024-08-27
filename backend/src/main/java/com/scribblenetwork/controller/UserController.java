@@ -1,7 +1,7 @@
-package com.digitaldiaries.controller;
+package com.scribblenetwork.controller;
 
-import com.digitaldiaries.entity.Users;
-import com.digitaldiaries.service.UserService;
+import com.scribblenetwork.entity.Users;
+import com.scribblenetwork.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +22,11 @@ public class UserController {
     @PostMapping(path = "/register")
     public Users register(@RequestBody Users user){
         return userService.register(user);
+    }
+
+    @PostMapping(path = "/login")
+    public String login(@RequestBody Users user){
+        return userService.verifyUser(user);
     }
 
     @GetMapping(path="/")

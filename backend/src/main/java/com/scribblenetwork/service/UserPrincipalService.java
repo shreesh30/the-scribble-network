@@ -1,8 +1,8 @@
-package com.digitaldiaries.service;
+package com.scribblenetwork.service;
 
-import com.digitaldiaries.entity.Users;
-import com.digitaldiaries.model.UserPrincipal;
-import com.digitaldiaries.repository.UserRepository;
+import com.scribblenetwork.entity.Users;
+import com.scribblenetwork.model.UserPrincipal;
+import com.scribblenetwork.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
