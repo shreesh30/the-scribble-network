@@ -15,22 +15,22 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    public UserController(UserService userService){
-        this.userService=userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @PostMapping(path = "/register")
-    public Users register(@RequestBody Users user){
+    public Users register(@RequestBody Users user) {
         return userService.register(user);
     }
 
     @PostMapping(path = "/login")
-    public String login(@RequestBody Users user){
+    public String login(@RequestBody Users user) {
         return userService.verifyUser(user);
     }
 
-    @GetMapping(path="/")
-    public List<Users> getUsers(){
+    @GetMapping(path = "/")
+    public List<Users> getUsers() {
         return userService.getUsers();
     }
 }
