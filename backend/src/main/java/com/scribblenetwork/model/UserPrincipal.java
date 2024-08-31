@@ -1,6 +1,6 @@
 package com.scribblenetwork.model;
 
-import com.scribblenetwork.entity.Users;
+import com.scribblenetwork.entity.UserEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,9 +10,9 @@ import java.util.Collections;
 
 public class UserPrincipal implements UserDetails {
 
-    private Users user;
+    private UserEntity user;
 
-    public UserPrincipal(Users user) {
+    public UserPrincipal(UserEntity user) {
         this.user=user;
     }
 

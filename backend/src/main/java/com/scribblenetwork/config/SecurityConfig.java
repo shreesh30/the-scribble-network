@@ -1,5 +1,6 @@
-package com.scribblenetwork.security;
+package com.scribblenetwork.config;
 
+import com.scribblenetwork.security.JWTFilter;
 import com.scribblenetwork.service.UserPrincipalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

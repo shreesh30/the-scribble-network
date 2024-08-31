@@ -1,6 +1,6 @@
 package com.scribblenetwork.service;
 
-import com.scribblenetwork.entity.Users;
+import com.scribblenetwork.entity.UserEntity;
 import com.scribblenetwork.model.UserPrincipal;
 import com.scribblenetwork.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class UserPrincipalService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Users user=userRepository.findByUsername(username);
+        UserEntity user=userRepository.findByUsername(username);
         if(user==null){
             System.out.println("User Not Found");
             throw new UsernameNotFoundException("User Not Found");

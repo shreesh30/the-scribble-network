@@ -1,16 +1,15 @@
 package com.scribblenetwork.service;
 
-import com.scribblenetwork.entity.Users;
+import com.scribblenetwork.entity.UserEntity;
+import com.scribblenetwork.model.UserModel;
 import com.scribblenetwork.repository.UserRepository;
+import com.scribblenetwork.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.security.NoSuchAlgorithmException;
-import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -32,22 +31,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Users register(Users user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+    public UserModel register(UserModel userModel) {
+        UserEntity userEntity=new UserEntity();
+        userEntity.setId(UserUtils.generateUserId());
+        userEntity.setUsername(userModel.getUsername());
+        userEntity.setPassword(passwordEncoder.encode(userModel.getPassword()));
+        userEntity=userRepository.save(userEntity);
+        userModel=UserUtils.getUserModel(userEntity);
+        return userModel;
     }
 
     @Override
-    public List<Users> getUsers() {
-        return userRepository.findAll();
-    }
-
-    @Override
-    public String verifyUser(Users user) {
+    public String verifyUser(UserModel user) {
+        String jwtToken=null;
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
         if (authentication.isAuthenticated()) {
-            return jwtService.generateToken(user.getUsername());
+            jwtToken=jwtService.generateToken(user.getUsername());
         }
-        return "Failure";
+        return jwtToken;
     }
+
+
 }

@@ -1,14 +1,9 @@
 package com.scribblenetwork.service;
 
-import com.scribblenetwork.entity.Users;
-
-import java.util.List;
+import com.scribblenetwork.model.UserModel;
 
 public interface UserService {
+    UserModel register(UserModel user);
 
-    public Users register(Users user);
-
-    public List<Users> getUsers();
-
-    String verifyUser(Users user);
+    String verifyUser(UserModel user);
 }
