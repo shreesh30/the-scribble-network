@@ -3,6 +3,7 @@ package com.scribblenetwork.controller;
 import com.scribblenetwork.model.UserModel;
 import com.scribblenetwork.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,5 +25,10 @@ public class UserController {
     @PostMapping(path = "/login")
     public String login(@RequestBody UserModel user) {
         return userService.verifyUser(user);
+    }
+
+    @GetMapping(path = "/")
+    public String test(){
+        return "Success";
     }
 }

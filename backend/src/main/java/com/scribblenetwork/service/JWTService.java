@@ -3,7 +3,7 @@ package com.scribblenetwork.service;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public interface JWTService {
-    String generateToken(String username);
+    String generateToken(String userUsername, String userId);
 
     String extractUsername(String token);
 

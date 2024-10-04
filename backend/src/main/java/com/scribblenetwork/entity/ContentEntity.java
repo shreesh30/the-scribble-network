@@ -1,8 +1,6 @@
 package com.scribblenetwork.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity(name="content")
 public class ContentEntity {
@@ -13,8 +11,9 @@ public class ContentEntity {
 
     private String content;
 
-    @Column(name = "user_id")
-    private String userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity user;
 
     @Column(name = "created_on")
     private Long createdOn;
@@ -38,12 +37,12 @@ public class ContentEntity {
         this.content = content;
     }
 
-    public String getUserId() {
-        return userId;
+    public UserEntity getUser() {
+        return user;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUserId(UserEntity user) {
+        this.user = user;
     }
 
     public Long getCreatedOn() {

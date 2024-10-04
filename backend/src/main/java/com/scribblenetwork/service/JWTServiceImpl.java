@@ -1,7 +1,6 @@
 package com.scribblenetwork.service;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -31,15 +30,16 @@ public class JWTServiceImpl implements JWTService {
     }
 
     @Override
-    public String generateToken(String username) {
+    public String generateToken(String username, String userId) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("id", userId);
+
+
         return Jwts.builder()
-                .claims()
-                .add(claims)
+                .claims(claims)
                 .subject(username)
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + 60 * 60 * 30))
-                .and()
                 .signWith(generateKey())
                 .compact();
     }
@@ -50,6 +50,10 @@ public class JWTServiceImpl implements JWTService {
         return username;
     }
 
+    public String extractUserId(String token) {
+        Claims claims=extractAllClaims(token);
+        return claims.get("id",String.class);
+    }
 
     private <T> T extractClaim(String token, Function<Claims, T> claimResolver) {
         final Claims claims = extractAllClaims(token);
