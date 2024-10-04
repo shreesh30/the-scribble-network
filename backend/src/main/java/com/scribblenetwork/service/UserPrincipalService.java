@@ -24,7 +24,6 @@ public class UserPrincipalService implements UserDetailsService {
 
         UserEntity user=userRepository.findByUsername(username);
         if(user==null){
-            System.out.println("User Not Found");
             throw new UsernameNotFoundException("User Not Found");
         }
 

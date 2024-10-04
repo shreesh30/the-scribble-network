@@ -1,6 +1,8 @@
 package com.scribblenetwork.service;
 
 import com.scribblenetwork.entity.UserEntity;
+import com.scribblenetwork.exception.ScribbleException;
+import com.scribblenetwork.exception.UnauthorizedException;
 import com.scribblenetwork.model.UserModel;
 import com.scribblenetwork.repository.UserRepository;
 import com.scribblenetwork.utils.UserUtils;
@@ -35,14 +37,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserModel register(UserModel userModel) {
-        UserEntity userEntity = new UserEntity();
-        userEntity.setId(UserUtils.generateUserId());
-        userEntity.setUsername(userModel.getUsername());
-        userEntity.setPassword(passwordEncoder.encode(userModel.getPassword()));
-        userEntity = userRepository.save(userEntity);
-        userModel = UserUtils.getUserModel(userEntity);
-        return userModel;
+    public UserModel register(UserModel userModel) throws ScribbleException {
+        try {
+            UserEntity userEntity = new UserEntity();
+            userEntity.setId(UserUtils.generateUserId());
+            userEntity.setUsername(userModel.getUsername());
+            userEntity.setPassword(passwordEncoder.encode(userModel.getPassword()));
+            userEntity = userRepository.save(userEntity);
+            userModel = UserUtils.getUserModel(userEntity);
+            return userModel;
+        }catch (Exception e){
+            throw new ScribbleException("Error while creating user");
+        }
     }
 
     @Override
@@ -51,14 +57,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String verifyUser(UserModel user) {
-        String jwtToken = null;
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
-        if (authentication.isAuthenticated()) {
-            UserEntity userEntity = getUser(user.getUsername());
-            jwtToken = jwtService.generateToken(user.getUsername(), userEntity.getId());
+    public String verifyUser(UserModel user) throws UnauthorizedException {
+        try {
+            String jwtToken = null;
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+            if (authentication.isAuthenticated()) {
+                UserEntity userEntity = getUser(user.getUsername());
+                jwtToken = jwtService.generateToken(user.getUsername(), userEntity.getId());
+            }
+            return jwtToken;
+        }catch(Exception e){
+            throw new UnauthorizedException("User/Password not found");
         }
-        return jwtToken;
     }
 
 

@@ -50,4 +50,12 @@ public class UserPrincipal implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public String getUserId(){
+        return user.getId();
+    }
+
+    public UserEntity getUser(){
+        return user;
+    }
 }
