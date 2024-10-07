@@ -1,14 +1,17 @@
 package com.scribblenetwork.model;
 
-import com.fasterxml.jackson.annotation.JacksonAnnotation;
 import com.fasterxml.jackson.annotation.JsonInclude;
+
+import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ContentModel {
 
     private String id;
 
-    private String content;
+    private String name;
+
+    private Map<String,String> data;
 
     private String userId;
 
@@ -24,12 +27,12 @@ public class ContentModel {
         this.id = id;
     }
 
-    public String getContent() {
-        return content;
+    public String getName() {
+        return name;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getUserId() {
@@ -56,11 +59,20 @@ public class ContentModel {
         this.lastUpdated = lastUpdated;
     }
 
+    public Map<String, String> getData() {
+        return data;
+    }
+
+    public void setData(Map<String,String> data) {
+        this.data = data;
+    }
+
     @Override
     public String toString() {
         return "ContentModel{" +
                 "id='" + id + '\'' +
-                ", content='" + content + '\'' +
+                ", name='" + name + '\'' +
+                ", data=" + data +
                 ", userId='" + userId + '\'' +
                 ", createdOn=" + createdOn +
                 ", lastUpdated=" + lastUpdated +

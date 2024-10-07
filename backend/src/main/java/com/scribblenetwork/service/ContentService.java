@@ -5,4 +5,6 @@ import com.scribblenetwork.model.ContentModel;
 
 public interface ContentService {
     ContentModel createContent(ContentModel contentModel) throws ScribbleException;
+
+    ContentModel deleteContent(String contentId) throws ScribbleException;
 }

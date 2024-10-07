@@ -2,14 +2,19 @@ package com.scribblenetwork.entity;
 
 import jakarta.persistence.*;
 
-@Entity(name="content")
+@Entity
+@Table(name = "content")
 public class ContentEntity {
 
     @Id
     @Column(name = "id", nullable = false)
     private String id;
 
-    private String content;
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "data")
+    private String data;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -29,12 +34,12 @@ public class ContentEntity {
         this.id = id;
     }
 
-    public String getContent() {
-        return content;
+    public String getName() {
+        return name;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public UserEntity getUser() {
@@ -59,5 +64,13 @@ public class ContentEntity {
 
     public void setLastUpdated(Long lastUpdated) {
         this.lastUpdated = lastUpdated;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
     }
 }
