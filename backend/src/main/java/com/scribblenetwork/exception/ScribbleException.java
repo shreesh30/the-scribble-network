@@ -27,6 +27,12 @@ public class ScribbleException extends Exception {
         this.message = message;
     }
 
+    public ScribbleException(HttpStatus status, String message, Exception exception) {
+        this.code = status.toString();
+        this.message = message;
+        this.exception = exception;
+    }
+
     public ScribbleException(final String message, final Exception exception) {
         super(message, exception);
         this.exception = exception;
@@ -35,9 +41,11 @@ public class ScribbleException extends Exception {
 
     @Override
     public String getMessage() {
-        if (!StringUtils.hasLength(super.getMessage()))
-            return message + super.getMessage();
-        else return message;
+        if (StringUtils.hasLength(message)) {
+            return message + (super.getMessage() != null ? ": " + super.getMessage() : "");
+        } else {
+            return super.getMessage(); // Fall back to the default message if 'message' is null
+        }
     }
 
     public void setMessage(String message) {

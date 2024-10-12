@@ -26,29 +26,29 @@ public class ContentController {
     public ResponseEntity<ContentModel> createContent(@RequestBody ContentModel content) throws ScribbleException {
         try {
             return new ResponseEntity<>(contentService.createContent(content),HttpStatus.OK);
-        } catch (Exception e) {
+        } catch (ScribbleException e) {
             logger.error("Error while processing content ");
-            throw new ScribbleException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+            throw new ScribbleException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
         }
     }
 
     @DeleteMapping(path="/content/delete/{contentId}")
     public ResponseEntity<ContentModel> deleteContent(@PathVariable String contentId) throws ScribbleException {
         try{
-            return  new ResponseEntity<>(contentService.deleteContent(contentId), HttpStatus.OK);
-        }catch(Exception e){
+            return new ResponseEntity<>(contentService.deleteContent(contentId), HttpStatus.OK);
+        }catch(ScribbleException e){
             logger.error("Error while deleting content ");
-            throw new ScribbleException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+            throw new ScribbleException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage() , e);
         }
     }
 
     @PutMapping(path = "/content/edit/{contentId}")
     public ResponseEntity<ContentModel> editContent(@PathVariable String contentId,@RequestBody ContentModel content) throws ScribbleException {
         try{
-            return  new ResponseEntity<>(contentService.editContent(contentId, content), HttpStatus.OK);
-        }catch(Exception e){
+            return new ResponseEntity<>(contentService.editContent(contentId, content), HttpStatus.OK);
+        }catch(ScribbleException e){
             logger.error("Error while updating content ");
-            throw new ScribbleException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+            throw new ScribbleException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
         }
     }
 }

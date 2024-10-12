@@ -41,35 +41,49 @@ public class ContentServiceImpl implements ContentService{
 
             return contentModel;
         }catch (Exception e){
-            throw new ScribbleException("Error saving content "+e);
+            throw new ScribbleException("Error saving content "+ e.getMessage() , e);
         }
     }
 
     @Override
     public ContentModel deleteContent(String contentId) throws ScribbleException {
         try {
-            ContentEntity contentEntity=contentRepository.findById(contentId);
+            ContentEntity contentEntity = contentRepository.findById(contentId);
+            if(contentEntity==null){
+                throw new ScribbleException("Content with ID " + contentId + " not found.");
+            }
+            if (!contentEntity.getUser().getId().equalsIgnoreCase(UserUtils.getLoggedInUserId())) {
+                throw new ScribbleException("User does not have permission to delete content");
+            }
             contentRepository.delete(contentEntity);
-            ContentModel contentModel=createContentModel(contentEntity);
+            ContentModel contentModel = createContentModel(contentEntity);
             return contentModel;
-        }catch(Exception e){
-            throw new ScribbleException("Error deleting content "+e);
+        } catch (Exception e) {
+            throw new ScribbleException("Error deleting content " + e.getMessage() , e);
         }
     }
 
     @Override
     public ContentModel editContent(String contentId, ContentModel content) throws ScribbleException {
         try {
-            ContentEntity contentEntity=contentRepository.findById(contentId);
+            ContentEntity contentEntity = contentRepository.findById(contentId);
+            if(contentEntity==null){
+                throw new ScribbleException("Content with ID " + contentId + " not found.");
+            }
+            if (!contentEntity.getUser().getId().equalsIgnoreCase(UserUtils.getLoggedInUserId())) {
+                throw new ScribbleException("User does not have permission to update content");
+            }
+
             contentEntity.setName(content.getName());
             contentEntity.setData(objectMapper.writeValueAsString(content.getData()));
             contentEntity.setLastUpdated(System.currentTimeMillis());
             contentRepository.save(contentEntity);
 
-            ContentModel contentModel=createContentModel(contentEntity);
+            ContentModel contentModel = createContentModel(contentEntity);
             return contentModel;
-        }catch(Exception e){
-            throw new ScribbleException("Error updating content "+e);
+
+        } catch (Exception e) {
+            throw new ScribbleException("Error updating content " + e.getMessage() , e);
         }
     }
 
