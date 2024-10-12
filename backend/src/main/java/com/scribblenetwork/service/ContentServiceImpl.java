@@ -53,7 +53,23 @@ public class ContentServiceImpl implements ContentService{
             ContentModel contentModel=createContentModel(contentEntity);
             return contentModel;
         }catch(Exception e){
-            throw new ScribbleException("Error saving content "+e);
+            throw new ScribbleException("Error deleting content "+e);
+        }
+    }
+
+    @Override
+    public ContentModel editContent(String contentId, ContentModel content) throws ScribbleException {
+        try {
+            ContentEntity contentEntity=contentRepository.findById(contentId);
+            contentEntity.setName(content.getName());
+            contentEntity.setData(objectMapper.writeValueAsString(content.getData()));
+            contentEntity.setLastUpdated(System.currentTimeMillis());
+            contentRepository.save(contentEntity);
+
+            ContentModel contentModel=createContentModel(contentEntity);
+            return contentModel;
+        }catch(Exception e){
+            throw new ScribbleException("Error updating content "+e);
         }
     }
 

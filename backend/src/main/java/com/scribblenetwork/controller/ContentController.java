@@ -41,4 +41,14 @@ public class ContentController {
             throw new ScribbleException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
+
+    @PutMapping(path = "/content/edit/{contentId}")
+    public ResponseEntity<ContentModel> editContent(@PathVariable String contentId,@RequestBody ContentModel content) throws ScribbleException {
+        try{
+            return  new ResponseEntity<>(contentService.editContent(contentId, content), HttpStatus.OK);
+        }catch(Exception e){
+            logger.error("Error while updating content ");
+            throw new ScribbleException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+    }
 }
